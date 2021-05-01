@@ -33,7 +33,7 @@
             "name": "Question4",
             "type": "MCQ",
             "qtext": "Let me test some Latex in this question: \b( x = 1 \b)",
-            "choices": ["Michael Jordan", "Lebron James", "Kobe Bryant", "Denzel Valentine"], 
+            "choices": ["Michael Jordan", "Lebron $x=1$", "Kobe Bryant", "Denzel Valentine"], 
             "answerlabels": ["A", "B", "C", "D"],
             "correctlabel": "A",
             "explanation": "MJ = GOAT"
