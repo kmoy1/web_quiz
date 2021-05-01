@@ -65,7 +65,7 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
                 for (let i = 0; i < num_choices; i++){
                     q_div_block.append(`<div class="MCQ-All-choice">
                                                         <label>
-                                                        <input type='checkbox' name='option${i}'/>
+                                                        <input type='checkbox' name='${question["answerlabels"][i]}'}'/>
                                                         </label>
                                                         <span></span>
                                                     </div>
@@ -77,15 +77,19 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
                 `);
         
                 $(`div#${question.name} .q-text`).html(`${question.qtext}`);
-                $(`div#${question.name} .MCQ-choice label`).each(function(i) {
+                $(`div#${question.name} .MCQ-All-choice label`).each(function(i) {
                     this.innerHTML += `${question.choices[i]}`;
                 });
                 submitButton = $(`div#${question.name} button`);
                 submitButton.on('click', function(){
-                    checkAnswerMCQ(question.name);
-                    if ($(`div#${question.name}`).attr("correct") === "true"){
+                    if (checkAnswerMCQAll(question.name)){
+                        $(`div#${question.name} .corrlogo`).html("Correct! &#9989;");
                         $(`div#${question.name} .explanation`).html(`<hr> <b>Explanation</b> <br> ${question.explanation}`);
                         $(this).attr('disabled', 'disabled');  
+                        $(`div#${question.name} .explanation`)
+                    }    
+                    else{
+                        $(`div#${question.name} .corrlogo`).html("Incorrect. &#x274C;");
                     }
                 });
             }
@@ -121,5 +125,28 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
         else{
             $(`div#${questionId} .corrlogo`).html("Incorrect. &#x274C;");
         }
+    }
+    function arrayEquals(a, b) {
+        return Array.isArray(a) &&
+          Array.isArray(b) &&
+          a.length === b.length &&
+          a.every((val, index) => val === b[index]);
+    }
+
+    function checkAnswerMCQAll(questionId){
+        target_q_ind = q_bank.findIndex(x => x.name === questionId);
+        question = q_bank[target_q_ind]
+        correct_labels = question.correctlabels;
+        selected = []
+        // Get selected answers into list.
+        for (let i = 0; i < question.choices.length; i++){
+            input_choice = $(`div#${questionId} .MCQ-All-choice input`)[i];
+            if (input_choice.checked){
+                selected.push(input_choice.name);
+            }
+        }
+        console.log(selected);
+        //Compare list with correct labels.
+        return arrayEquals(selected, correct_labels);
     }
 });
