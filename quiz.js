@@ -102,22 +102,15 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
         return re.test(user_input);
     }
     function checkAnswerMCQ(questionId){
-        // console.log(`Checking question answer for ${questionId}`);
         target_q_ind = q_bank.findIndex(x => x.name === questionId);
         correct_answer = q_bank[target_q_ind].correctlabel;
-        // console.log(`Correct Answer for this question is ${correct_answer}`);
         correct_answer_ind = q_bank[target_q_ind].answerlabels.indexOf(correct_answer);
-        // console.log(`Correct Answer Index for this question is ${correct_answer_ind}`);
         user_selected_ind = 0;
-        // console.log(`There are ${q_bank[target_q_ind].choices.length}$ choices for this question.`);
         for (let i = 0; i < q_bank[target_q_ind].choices.length; i++){
             if ($(`div#${questionId} .MCQ-choice input`)[i].checked){
                 user_selected_ind = i;
             }
         }
-        // console.log(`User Has Selected ${user_selected_ind}`);
-    
-    
         if (user_selected_ind == correct_answer_ind) {
             $(`div#${questionId} .corrlogo`).html("Correct! &#9989;");
             $(`div#${questionId}`).attr("correct", "true");
@@ -135,9 +128,9 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
 
     function checkAnswerMCQAll(questionId){
         target_q_ind = q_bank.findIndex(x => x.name === questionId);
-        question = q_bank[target_q_ind]
+        question = q_bank[target_q_ind];
         correct_labels = question.correctlabels;
-        selected = []
+        selected = [];
         // Get selected answers into list.
         for (let i = 0; i < question.choices.length; i++){
             input_choice = $(`div#${questionId} .MCQ-All-choice input`)[i];
