@@ -22,10 +22,12 @@
         },
         {
             "name": "Question3",
-            "type": "Blank",
-            "qtext": "(4+3) * 2 = ?",
-            "correctanswer": "24",
-            "explanation": "That's how math works"
+            "type": "MCQ-All",
+            "qtext": "Who are NBA icons?",
+            "choices": ["Michael Jordan", "Lebron James", "Kobe Bryant", "Denzel Valentine"], 
+            "answerlabels": ["A", "B", "C", "D"],
+            "correctlabels": ["A", "B", "C"],
+            "explanation": "First three are legends, Valentine fucking sucks"
         }
     ]
 }

@@ -20,6 +20,7 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
                                                     `);
                 }
                 $(`div#${question.name}`).append(`<button type='button' class="btn btn-primary">Submit</button>
+                                                    <div class="corrlogo"></div>
                                                     <div class="explanation"></div>
                 `);
         
@@ -59,9 +60,39 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
                         $(`div#${question.name} .corrlogo`).html("Incorrect. &#x274C;");
                     }
                 });                           
+            } else if (q_type === 'MCQ-All'){
+                num_choices = question.choices.length;
+                for (let i = 0; i < num_choices; i++){
+                    q_div_block.append(`<div class="MCQ-All-choice">
+                                                        <label>
+                                                        <input type='checkbox' name='option${i}'/>
+                                                        </label>
+                                                        <span></span>
+                                                    </div>
+                                                    `);
+                }
+                $(`div#${question.name}`).append(`<button type='button' class="btn btn-primary">Submit</button>
+                                                    <div class="corrlogo"></div>
+                                                    <div class="explanation"></div>
+                `);
+        
+                $(`div#${question.name} .q-text`).html(`${question.qtext}`);
+                $(`div#${question.name} .MCQ-choice label`).each(function(i) {
+                    this.innerHTML += `${question.choices[i]}`;
+                });
+                submitButton = $(`div#${question.name} button`);
+                submitButton.on('click', function(){
+                    checkAnswerMCQ(question.name);
+                    if ($(`div#${question.name}`).attr("correct") === "true"){
+                        $(`div#${question.name} .explanation`).html(`<hr> <b>Explanation</b> <br> ${question.explanation}`);
+                        $(this).attr('disabled', 'disabled');  
+                    }
+                });
             }
         }
     });
+
+
     function checkAnswerBlank(user_input, corr_answer_regex){
         var re = new RegExp(corr_answer_regex);
         return re.test(user_input);
@@ -84,15 +115,11 @@ $.getJSON("https://my-json-server.typicode.com/kmoy1/web_quiz/db", function(data
     
     
         if (user_selected_ind == correct_answer_ind) {
-            $(`div#${questionId} .MCQ-choice`)[user_selected_ind].style.border = '3px solid limegreen'
-            $(`div#${questionId} .MCQ-choice span`)[user_selected_ind].style.color = 'limegreen'
-            $(`div#${questionId} .MCQ-choice span`)[user_selected_ind].innerHTML += "Correct!";
+            $(`div#${questionId} .corrlogo`).html("Correct! &#9989;");
             $(`div#${questionId}`).attr("correct", "true");
         }
         else{
-            $(`div#${questionId} .MCQ-choice`)[user_selected_ind].style.border = '3px solid red'
-            $(`div#${questionId} .MCQ-choice span`)[user_selected_ind].style.color = 'red'
-            $(`div#${questionId} .MCQ-choice span`)[user_selected_ind].innerHTML += "Incorrect.";
+            $(`div#${questionId} .corrlogo`).html("Incorrect. &#x274C;");
         }
     }
 });
