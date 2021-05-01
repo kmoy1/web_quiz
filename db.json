@@ -24,7 +24,7 @@
             "name": "Question3",
             "type": "MCQ-All",
             "qtext": "Who are NBA icons?",
-            "choices": ["Michael Jordan", "Lebron James", "Kobe Bryant", "Denzel Valentine"], 
+            "choices": ["Michael Jordan", "Lebron $x=1$", "Kobe Bryant", "Denzel Valentine"], 
             "answerlabels": ["A", "B", "C", "D"],
             "correctlabels": ["A", "B", "C"],
             "explanation": "First three are legends, Valentine fucking sucks"
