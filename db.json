@@ -32,7 +32,7 @@
         {
             "name": "Question4",
             "type": "MCQ",
-            "qtext": "Let me test some Latex in this question:  x=1",
+            "qtext": "Let me test some Latex in this question: $x=1$",
             "choices": ["Michael Jordan", "Lebron James", "Kobe Bryant", "Denzel Valentine"], 
             "answerlabels": ["A", "B", "C", "D"],
             "correctlabel": "A",
