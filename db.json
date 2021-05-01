@@ -28,7 +28,7 @@
             "answerlabels": ["A", "B", "C", "D"],
             "correctlabels": ["A", "B", "C"],
             "explanation": "First three are legends, Valentine fucking sucks"
-        }
+        },
         {
             "name": "Question4",
             "type": "MCQ",
